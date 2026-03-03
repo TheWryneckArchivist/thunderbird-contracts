@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package thunderbird.v1;
+
+option csharp_namespace = "Thunderbird.Contracts.V1";
+
+import "thunderbird/v1/common.proto";
+
+service ProfileService {
+  rpc GetProfile(GetProfileRequest) returns (GetProfileResponse);
+  rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse);
+  rpc GetEntitlements(GetEntitlementsRequest) returns (GetEntitlementsResponse);
+}
+
+message PlayerProfile {
+  string user_id = 1;
+  string display_name = 2;
+  string locale = 3;
+  repeated ActorRole roles = 4;
+  int64 experience = 5;
+  int32 level = 6;
+}
+
+message GetProfileRequest {
+  string user_id = 1;
+}
+
+message GetProfileResponse {
+  PlayerProfile profile = 1;
+  CorrelationMeta meta = 2;
+}
+
+message UpdateProfileRequest {
+  string user_id = 1;
+  string display_name = 2;
+  string locale = 3;
+  string idempotency_key = 4;
+}
+
+message UpdateProfileResponse {
+  PlayerProfile profile = 1;
+  CorrelationMeta meta = 2;
+}
+
+message GetEntitlementsRequest {
+  string user_id = 1;
+}
+
+message Entitlement {
+  string entitlement_id = 1;
+  string kind = 2;
+  bool is_active = 3;
+}
+
+message GetEntitlementsResponse {
+  repeated Entitlement entitlements = 1;
+  CorrelationMeta meta = 2;
+}

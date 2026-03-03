@@ -1,0 +1,12 @@
+/var/home/thewryneckarchivist/Desktop/Projects/TheWryneckArchivist/Robotics Webpage/thunderbird-contracts/sdk/csharp/obj/Release/net8.0/Thunderbird.Contracts.csproj.AssemblyReference.cache
+/var/home/thewryneckarchivist/Desktop/Projects/TheWryneckArchivist/Robotics Webpage/thunderbird-contracts/sdk/csharp/obj/Release/net8.0/Thunderbird.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+/var/home/thewryneckarchivist/Desktop/Projects/TheWryneckArchivist/Robotics Webpage/thunderbird-contracts/sdk/csharp/obj/Release/net8.0/Thunderbird.Contracts.AssemblyInfoInputs.cache
+/var/home/thewryneckarchivist/Desktop/Projects/TheWryneckArchivist/Robotics Webpage/thunderbird-contracts/sdk/csharp/obj/Release/net8.0/Thunderbird.Contracts.AssemblyInfo.cs
+/var/home/thewryneckarchivist/Desktop/Projects/TheWryneckArchivist/Robotics Webpage/thunderbird-contracts/sdk/csharp/obj/Release/net8.0/Thunderbird.Contracts.csproj.CoreCompileInputs.cache
+/var/home/thewryneckarchivist/Desktop/Projects/TheWryneckArchivist/Robotics Webpage/thunderbird-contracts/sdk/csharp/bin/Release/net8.0/Thunderbird.Contracts.deps.json
+/var/home/thewryneckarchivist/Desktop/Projects/TheWryneckArchivist/Robotics Webpage/thunderbird-contracts/sdk/csharp/bin/Release/net8.0/Thunderbird.Contracts.dll
+/var/home/thewryneckarchivist/Desktop/Projects/TheWryneckArchivist/Robotics Webpage/thunderbird-contracts/sdk/csharp/bin/Release/net8.0/Thunderbird.Contracts.pdb
+/var/home/thewryneckarchivist/Desktop/Projects/TheWryneckArchivist/Robotics Webpage/thunderbird-contracts/sdk/csharp/obj/Release/net8.0/Thunderbird.Contracts.dll
+/var/home/thewryneckarchivist/Desktop/Projects/TheWryneckArchivist/Robotics Webpage/thunderbird-contracts/sdk/csharp/obj/Release/net8.0/refint/Thunderbird.Contracts.dll
+/var/home/thewryneckarchivist/Desktop/Projects/TheWryneckArchivist/Robotics Webpage/thunderbird-contracts/sdk/csharp/obj/Release/net8.0/Thunderbird.Contracts.pdb
+/var/home/thewryneckarchivist/Desktop/Projects/TheWryneckArchivist/Robotics Webpage/thunderbird-contracts/sdk/csharp/obj/Release/net8.0/ref/Thunderbird.Contracts.dll

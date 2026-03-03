@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "YkUoIpMOnac=",
+  "success": true,
+  "projectFilePath": "/var/home/thewryneckarchivist/Desktop/Projects/TheWryneckArchivist/Robotics Webpage/thunderbird-contracts/sdk/csharp/Thunderbird.Contracts.csproj",
+  "expectedPackageFiles": [
+    "/home/thewryneckarchivist/.nuget/packages/google.protobuf/3.29.3/google.protobuf.3.29.3.nupkg.sha512",
+    "/home/thewryneckarchivist/.nuget/packages/grpc.core.api/2.71.0/grpc.core.api.2.71.0.nupkg.sha512",
+    "/home/thewryneckarchivist/.nuget/packages/grpc.net.client/2.71.0/grpc.net.client.2.71.0.nupkg.sha512",
+    "/home/thewryneckarchivist/.nuget/packages/grpc.net.common/2.71.0/grpc.net.common.2.71.0.nupkg.sha512",
+    "/home/thewryneckarchivist/.nuget/packages/grpc.tools/2.71.0/grpc.tools.2.71.0.nupkg.sha512",
+    "/home/thewryneckarchivist/.nuget/packages/microsoft.extensions.logging.abstractions/6.0.0/microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
+    "/home/thewryneckarchivist/.nuget/packages/microsoft.netcore.app.ref/8.0.22/microsoft.netcore.app.ref.8.0.22.nupkg.sha512",
+    "/home/thewryneckarchivist/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.22/microsoft.aspnetcore.app.ref.8.0.22.nupkg.sha512"
+  ],
+  "logs": []
+}

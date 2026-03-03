@@ -1,0 +1,89 @@
+name: contracts-publish
+
+on:
+  push:
+    tags:
+      - 'contracts/v*'
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: bufbuild/buf-setup-action@v1
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate contracts
+        run: |
+          buf lint
+          buf breaking --against '.git#branch=main'
+          buf generate
+
+      - name: Verify package versions match tag
+        env:
+          RELEASE_VERSION: ${{ github.ref_name }}
+        run: |
+          VERSION="${RELEASE_VERSION#contracts/v}"
+          NODE_VERSION="$(node -p "require('./package.json').version")"
+          PY_VERSION="$(python - <<'PY'
+import tomllib
+with open('pyproject.toml', 'rb') as f:
+    data = tomllib.load(f)
+print(data['project']['version'])
+PY
+)"
+          DOTNET_VERSION="$(grep -oPm1 '(?<=<Version>)[^<]+' sdk/csharp/Thunderbird.Contracts.csproj)"
+
+          test "$NODE_VERSION" = "$VERSION" || (echo "package.json version $NODE_VERSION != $VERSION" && exit 1)
+          test "$PY_VERSION" = "$VERSION" || (echo "pyproject.toml version $PY_VERSION != $VERSION" && exit 1)
+          test "$DOTNET_VERSION" = "$VERSION" || (echo "Thunderbird.Contracts.csproj version $DOTNET_VERSION != $VERSION" && exit 1)
+
+      - name: Publish NuGet package
+        env:
+          NUGET_FEED_URL: ${{ secrets.NUGET_FEED_URL }}
+          NUGET_FEED_USERNAME: ${{ secrets.NUGET_FEED_USERNAME }}
+          NUGET_FEED_TOKEN: ${{ secrets.NUGET_FEED_TOKEN }}
+          RELEASE_VERSION: ${{ github.ref_name }}
+        run: |
+          VERSION="${RELEASE_VERSION#contracts/v}"
+          dotnet pack sdk/csharp/Thunderbird.Contracts.csproj -c Release -o artifacts/nuget /p:Version="$VERSION"
+
+          dotnet nuget add source "$NUGET_FEED_URL" \
+            --name thunderbird-private \
+            --username "$NUGET_FEED_USERNAME" \
+            --password "$NUGET_FEED_TOKEN" \
+            --store-password-in-clear-text
+          dotnet nuget push artifacts/nuget/*.nupkg --source thunderbird-private --skip-duplicate
+
+      - name: Publish npm package
+        env:
+          NPM_REGISTRY_URL: ${{ secrets.NPM_REGISTRY_URL }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm config set registry "$NPM_REGISTRY_URL"
+          npm publish
+
+      - name: Publish Python package
+        env:
+          TWINE_REPOSITORY_URL: ${{ secrets.PYPI_REPOSITORY_URL }}
+          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          python -m pip install --upgrade pip build twine
+          python -m build
+          python -m twine upload --skip-existing dist/*

@@ -1,0 +1,3 @@
+obj/Release/net8.0/thunderbird/v1/Moderation.cs \
+obj/Release/net8.0/thunderbird/v1/ModerationGrpc.cs: ../../proto/thunderbird/v1/common.proto\
+ ../../proto/thunderbird/v1/moderation.proto

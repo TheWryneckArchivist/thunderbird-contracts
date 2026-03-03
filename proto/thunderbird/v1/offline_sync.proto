@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package thunderbird.v1;
+
+option csharp_namespace = "Thunderbird.Contracts.V1";
+
+import "thunderbird/v1/common.proto";
+
+service OfflineSyncService {
+  rpc UploadOfflineDelta(UploadOfflineDeltaRequest) returns (UploadOfflineDeltaResponse);
+  rpc ValidateOfflineDelta(ValidateOfflineDeltaRequest) returns (ValidateOfflineDeltaResponse);
+  rpc CommitSelectiveMerge(CommitSelectiveMergeRequest) returns (CommitSelectiveMergeResponse);
+  rpc GetMergeReport(GetMergeReportRequest) returns (GetMergeReportResponse);
+}
+
+enum DeltaClass {
+  DELTA_CLASS_UNSPECIFIED = 0;
+  DELTA_CLASS_COSMETIC = 1;
+  DELTA_CLASS_UNRANKED_PROGRESS = 2;
+  DELTA_CLASS_NON_ECONOMY_UNLOCK = 3;
+  DELTA_CLASS_RANKED_MMR = 4;
+  DELTA_CLASS_COMPETITIVE_OUTCOME = 5;
+  DELTA_CLASS_PREMIUM_CURRENCY = 6;
+}
+
+message OfflineJournalEntry {
+  LocalActionEnvelope action = 1;
+  DeltaClass delta_class = 2;
+}
+
+message UploadOfflineDeltaRequest {
+  string user_id = 1;
+  string client_build = 2;
+  string ruleset_version = 3;
+  repeated OfflineJournalEntry entries = 4;
+  string idempotency_key = 5;
+}
+
+message UploadOfflineDeltaResponse {
+  string delta_id = 1;
+  CorrelationMeta meta = 2;
+}
+
+message ValidateOfflineDeltaRequest {
+  string delta_id = 1;
+}
+
+message ActionValidationResult {
+  string action_id = 1;
+  bool accepted = 2;
+  string reason_code = 3;
+  DeltaClass delta_class = 4;
+}
+
+message ValidateOfflineDeltaResponse {
+  string merge_report_id = 1;
+  repeated ActionValidationResult results = 2;
+  CorrelationMeta meta = 3;
+}
+
+message CommitSelectiveMergeRequest {
+  string merge_report_id = 1;
+  string idempotency_key = 2;
+}
+
+message CommitSelectiveMergeResponse {
+  int32 accepted_count = 1;
+  int32 rejected_count = 2;
+  CorrelationMeta meta = 3;
+}
+
+message GetMergeReportRequest {
+  string merge_report_id = 1;
+}
+
+message GetMergeReportResponse {
+  repeated ActionValidationResult results = 1;
+  CorrelationMeta meta = 2;
+}

@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package thunderbird.v1;
+
+option csharp_namespace = "Thunderbird.Contracts.V1";
+
+import "thunderbird/v1/common.proto";
+
+service AuthService {
+  rpc BeginDiscordOAuth(BeginDiscordOAuthRequest) returns (BeginDiscordOAuthResponse);
+  rpc ExchangeDiscordCode(ExchangeDiscordCodeRequest) returns (ExchangeDiscordCodeResponse);
+  rpc RefreshAccessToken(RefreshAccessTokenRequest) returns (RefreshAccessTokenResponse);
+  rpc GetLinkedIdentities(GetLinkedIdentitiesRequest) returns (GetLinkedIdentitiesResponse);
+}
+
+message BeginDiscordOAuthRequest {
+  string redirect_uri = 1;
+  PlatformType platform = 2;
+}
+
+message BeginDiscordOAuthResponse {
+  string auth_url = 1;
+  string state = 2;
+  CorrelationMeta meta = 3;
+}
+
+message ExchangeDiscordCodeRequest {
+  string code = 1;
+  string state = 2;
+  string redirect_uri = 3;
+  string device_fingerprint = 4;
+}
+
+message AuthTokens {
+  string access_token = 1;
+  string refresh_token = 2;
+  int64 expires_at_unix = 3;
+}
+
+message ExchangeDiscordCodeResponse {
+  string user_id = 1;
+  AuthTokens tokens = 2;
+  CorrelationMeta meta = 3;
+}
+
+message RefreshAccessTokenRequest {
+  string refresh_token = 1;
+  string idempotency_key = 2;
+}
+
+message RefreshAccessTokenResponse {
+  AuthTokens tokens = 1;
+  CorrelationMeta meta = 2;
+}
+
+message GetLinkedIdentitiesRequest {
+  string user_id = 1;
+}
+
+message LinkedIdentity {
+  string provider = 1;
+  string provider_user_id = 2;
+  string display_name = 3;
+  int64 linked_at_unix = 4;
+}
+
+message GetLinkedIdentitiesResponse {
+  repeated LinkedIdentity identities = 1;
+  CorrelationMeta meta = 2;
+}

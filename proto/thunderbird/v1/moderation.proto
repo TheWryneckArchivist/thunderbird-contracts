@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package thunderbird.v1;
+
+option csharp_namespace = "Thunderbird.Contracts.V1";
+
+import "thunderbird/v1/common.proto";
+
+service ModerationService {
+  rpc ReportContent(ReportContentRequest) returns (ReportContentResponse);
+  rpc GetModerationStatus(GetModerationStatusRequest) returns (GetModerationStatusResponse);
+}
+
+message ReportContentRequest {
+  string reporter_user_id = 1;
+  string target_type = 2;
+  string target_id = 3;
+  string reason_code = 4;
+  string evidence_json = 5;
+  string idempotency_key = 6;
+}
+
+message ReportContentResponse {
+  string report_id = 1;
+  string status = 2;
+  CorrelationMeta meta = 3;
+}
+
+message GetModerationStatusRequest {
+  string report_id = 1;
+}
+
+message GetModerationStatusResponse {
+  string report_id = 1;
+  string status = 2;
+  string resolution_code = 3;
+  CorrelationMeta meta = 4;
+}

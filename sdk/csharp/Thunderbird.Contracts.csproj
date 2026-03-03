@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Thunderbird.Contracts</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Thunderbird Platform</Authors>
+    <Description>Generated protobuf/gRPC contracts for Thunderbird services.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.29.3" />
+    <PackageReference Include="Grpc.Core.Api" Version="2.71.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.71.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.71.0" PrivateAssets="All" />
+    <Protobuf Include="../../proto/**/*.proto" ProtoRoot="../../proto" GrpcServices="Both" />
+  </ItemGroup>
+</Project>

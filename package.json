@@ -1,0 +1,24 @@
+{
+  "name": "@thunderbird/contracts",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Thunderbird protobuf contracts and generated TypeScript SDK",
+  "license": "UNLICENSED",
+  "type": "module",
+  "main": "sdk/typescript/src/index.ts",
+  "types": "sdk/typescript/src/index.ts",
+  "files": [
+    "proto/**",
+    "sdk/typescript/src/**",
+    "README.md"
+  ],
+  "scripts": {
+    "lint:proto": "buf lint",
+    "breaking": "buf breaking --against '.git#branch=main'",
+    "generate": "buf generate",
+    "check": "npm run lint:proto && npm run breaking"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}

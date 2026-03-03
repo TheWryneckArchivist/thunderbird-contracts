@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package thunderbird.v1;
+
+option csharp_namespace = "Thunderbird.Contracts.V1";
+
+message CorrelationMeta {
+  string request_id = 1;
+  string correlation_id = 2;
+  string causation_id = 3;
+  int64 occurred_at_unix = 4;
+}
+
+enum ActorRole {
+  ACTOR_ROLE_UNSPECIFIED = 0;
+  ACTOR_ROLE_PLAYER = 1;
+  ACTOR_ROLE_MODERATOR = 2;
+  ACTOR_ROLE_ADMIN = 3;
+  ACTOR_ROLE_SERVICE = 4;
+}
+
+enum PlatformType {
+  PLATFORM_TYPE_UNSPECIFIED = 0;
+  PLATFORM_TYPE_PC = 1;
+  PLATFORM_TYPE_WEB = 2;
+  PLATFORM_TYPE_DISCORD = 3;
+}
+
+message PageRequest {
+  int32 page_size = 1;
+  string cursor = 2;
+}
+
+message PageResponse {
+  string next_cursor = 1;
+  bool has_more = 2;
+}
+
+message LocalActionEnvelope {
+  string action_id = 1;
+  string action_type = 2;
+  string payload_json = 3;
+  int64 client_timestamp_unix = 4;
+  string client_build = 5;
+  string ruleset_version = 6;
+  string idempotency_key = 7;
+}

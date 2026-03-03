@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package thunderbird.v1;
+
+option csharp_namespace = "Thunderbird.Contracts.V1";
+
+import "thunderbird/v1/common.proto";
+
+message EventEnvelope {
+  string event_id = 1;
+  string event_type = 2;
+  int64 occurred_at_unix = 3;
+  CorrelationMeta meta = 4;
+  oneof payload {
+    SessionCreated session_created = 10;
+    SessionUpdated session_updated = 11;
+    PackPublished pack_published = 12;
+    ModerationFlagged moderation_flagged = 13;
+    OfflineDeltaAccepted offline_delta_accepted = 14;
+    OfflineDeltaPartiallyAccepted offline_delta_partially_accepted = 15;
+    OfflineDeltaRejected offline_delta_rejected = 16;
+  }
+}
+
+message SessionCreated {
+  string session_id = 1;
+  string host_user_id = 2;
+}
+
+message SessionUpdated {
+  string session_id = 1;
+  int64 server_tick = 2;
+}
+
+message PackPublished {
+  string pack_id = 1;
+  string owner_user_id = 2;
+}
+
+message ModerationFlagged {
+  string report_id = 1;
+  string target_id = 2;
+}
+
+message OfflineDeltaAccepted {
+  string delta_id = 1;
+  int32 accepted_count = 2;
+}
+
+message OfflineDeltaPartiallyAccepted {
+  string delta_id = 1;
+  int32 accepted_count = 2;
+  int32 rejected_count = 3;
+}
+
+message OfflineDeltaRejected {
+  string delta_id = 1;
+  string reason_code = 2;
+}

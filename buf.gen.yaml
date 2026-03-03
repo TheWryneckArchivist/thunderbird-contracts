@@ -1,0 +1,16 @@
+version: v2
+managed:
+  enabled: true
+plugins:
+  - remote: buf.build/protocolbuffers/csharp
+    out: gen/csharp
+  - remote: buf.build/grpc/csharp
+    out: gen/csharp
+  - remote: buf.build/protocolbuffers/python
+    out: gen/python
+  - remote: buf.build/grpc/python
+    out: gen/python
+  - remote: buf.build/bufbuild/es
+    out: gen/typescript
+    opt:
+      - target=ts

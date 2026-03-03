@@ -1,0 +1,9 @@
+.gen/
+gen/
+.DS_Store
+node_modules/
+dist/
+build/
+*.egg-info/
+__pycache__/
+artifacts/

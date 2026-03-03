@@ -1,0 +1,19 @@
+name: contracts-ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bufbuild/buf-setup-action@v1
+      - name: Lint
+        run: buf lint
+      - name: Breaking Check
+        run: buf breaking --against '.git#branch=main'
+      - name: Generate SDKs
+        run: buf generate

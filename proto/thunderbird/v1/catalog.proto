@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package thunderbird.v1;
+
+option csharp_namespace = "Thunderbird.Contracts.V1";
+
+import "thunderbird/v1/common.proto";
+
+service CatalogService {
+  rpc ListPacks(ListPacksRequest) returns (ListPacksResponse);
+  rpc GetPackDetail(GetPackDetailRequest) returns (GetPackDetailResponse);
+  rpc SubmitPackDraft(SubmitPackDraftRequest) returns (SubmitPackDraftResponse);
+}
+
+message PackSummary {
+  string pack_id = 1;
+  string title = 2;
+  string category = 3;
+  string tag = 4;
+  string owner_user_id = 5;
+}
+
+message PackDetail {
+  PackSummary summary = 1;
+  string description = 2;
+  repeated string asset_urls = 3;
+  int64 updated_at_unix = 4;
+}
+
+message ListPacksRequest {
+  string search_query = 1;
+  string tag = 2;
+  PageRequest page = 3;
+}
+
+message ListPacksResponse {
+  repeated PackSummary packs = 1;
+  PageResponse page = 2;
+  CorrelationMeta meta = 3;
+}
+
+message GetPackDetailRequest {
+  string pack_id = 1;
+}
+
+message GetPackDetailResponse {
+  PackDetail pack = 1;
+  CorrelationMeta meta = 2;
+}
+
+message SubmitPackDraftRequest {
+  string owner_user_id = 1;
+  string title = 2;
+  string description = 3;
+  string category = 4;
+  repeated string asset_urls = 5;
+  string idempotency_key = 6;
+}
+
+message SubmitPackDraftResponse {
+  string pack_id = 1;
+  string status = 2;
+  CorrelationMeta meta = 3;
+}

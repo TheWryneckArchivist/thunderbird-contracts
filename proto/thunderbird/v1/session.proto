@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package thunderbird.v1;
+
+option csharp_namespace = "Thunderbird.Contracts.V1";
+
+import "thunderbird/v1/common.proto";
+
+service SessionService {
+  rpc CreateSession(CreateSessionRequest) returns (CreateSessionResponse);
+  rpc JoinSession(JoinSessionRequest) returns (JoinSessionResponse);
+  rpc SubmitAction(SubmitActionRequest) returns (SubmitActionResponse);
+  rpc GetSessionState(GetSessionStateRequest) returns (GetSessionStateResponse);
+  rpc ListOpenSessions(ListOpenSessionsRequest) returns (ListOpenSessionsResponse);
+}
+
+message SessionSummary {
+  string session_id = 1;
+  string title = 2;
+  string ruleset_version = 3;
+  string status = 4;
+  int32 player_count = 5;
+  int64 updated_at_unix = 6;
+}
+
+message SessionState {
+  string session_id = 1;
+  string state_json = 2;
+  int64 server_tick = 3;
+  string ruleset_version = 4;
+}
+
+message CreateSessionRequest {
+  string host_user_id = 1;
+  string title = 2;
+  string ruleset_version = 3;
+  bool is_ranked = 4;
+  string idempotency_key = 5;
+}
+
+message CreateSessionResponse {
+  SessionSummary session = 1;
+  CorrelationMeta meta = 2;
+}
+
+message JoinSessionRequest {
+  string session_id = 1;
+  string user_id = 2;
+  string idempotency_key = 3;
+}
+
+message JoinSessionResponse {
+  SessionSummary session = 1;
+  CorrelationMeta meta = 2;
+}
+
+message SubmitActionRequest {
+  string session_id = 1;
+  string user_id = 2;
+  LocalActionEnvelope action = 3;
+}
+
+message SubmitActionResponse {
+  bool accepted = 1;
+  string reason_code = 2;
+  int64 server_tick = 3;
+  CorrelationMeta meta = 4;
+}
+
+message GetSessionStateRequest {
+  string session_id = 1;
+}
+
+message GetSessionStateResponse {
+  SessionState session_state = 1;
+  CorrelationMeta meta = 2;
+}
+
+message ListOpenSessionsRequest {
+  PageRequest page = 1;
+}
+
+message ListOpenSessionsResponse {
+  repeated SessionSummary sessions = 1;
+  PageResponse page = 2;
+  CorrelationMeta meta = 3;
+}

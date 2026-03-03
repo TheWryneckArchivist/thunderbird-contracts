@@ -1,0 +1,3 @@
+obj/Release/net8.0/thunderbird/v1/Session.cs \
+obj/Release/net8.0/thunderbird/v1/SessionGrpc.cs: ../../proto/thunderbird/v1/common.proto\
+ ../../proto/thunderbird/v1/session.proto
