@@ -1,3 +1,0 @@
-obj/Release/net8.0/thunderbird/v1/Catalog.cs \
-obj/Release/net8.0/thunderbird/v1/CatalogGrpc.cs: ../../proto/thunderbird/v1/common.proto\
- ../../proto/thunderbird/v1/catalog.proto

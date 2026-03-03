@@ -1,3 +1,0 @@
-obj/Debug/net8.0/thunderbird/v1/OfflineSync.cs \
-obj/Debug/net8.0/thunderbird/v1/OfflineSyncGrpc.cs: ../../proto/thunderbird/v1/common.proto\
- ../../proto/thunderbird/v1/offline_sync.proto
